@@ -13,7 +13,7 @@ import {
 import { Button } from '../Button';
 import { Search } from "../Search";
 import { Table } from "../Table";
-import { Loading } from "../Loading";
+import { withLoading } from "../../hocs/withLoading";
 
 class App extends Component {
     constructor(props) {
@@ -126,6 +126,8 @@ class App extends Component {
             results[searchKey].hits
         ) || [];
 
+        const ButtonWithLoading = withLoading(Button);
+
         return (
             <div className="page">
                 <div className="interactions">
@@ -147,14 +149,12 @@ class App extends Component {
                     />
                 }
                 <div className="interactions">
-                    { isLoading
-                        ? <Loading />
-                        : <Button
-                            onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}
-                        >
-                            More
-                        </Button>
-                    }
+                    <ButtonWithLoading
+                        isLoading={isLoading}
+                        onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}
+                    >
+                        More
+                    </ButtonWithLoading>
                 </div>
             </div>
         );
