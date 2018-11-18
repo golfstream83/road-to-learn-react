@@ -16,6 +16,8 @@ import { Table } from "../Table";
 import { withLoading } from "../../hocs/withLoading";
 
 class App extends Component {
+    _isMounted = false;
+
     constructor(props) {
         super(props);
 
@@ -45,8 +47,8 @@ class App extends Component {
         this.setState({ isLoading: true });
 
         axios(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
-            .then(result => this.setSearchTopStories(result.data))
-            .catch(error => this.setState({ error }));
+            .then(result => this._isMounted && this.setSearchTopStories(result.data))
+            .catch(error => this._isMounted && this.setState({ error }));
     }
 
     needsToSearchTopStories(searchTerm) {
