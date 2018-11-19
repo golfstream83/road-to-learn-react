@@ -14,6 +14,7 @@ import { Button } from '../Button';
 import { Search } from "../Search";
 import { Table } from "../Table";
 import { withLoading } from "../../hocs/withLoading";
+import { updateSearchTopStoriesState } from "../../hocs/updateSearchTopStoriesState";
 
 class App extends Component {
     _isMounted = false;
@@ -62,24 +63,7 @@ class App extends Component {
 
     setSearchTopStories(result) {
         const { hits, page } = result;
-        const { searchKey, results } = this.state;
-
-        const oldHits = results && results[searchKey]
-            ? results[searchKey].hits
-            : [];
-
-        const updatedHits = [
-            ...oldHits,
-            ...hits
-        ];
-
-        this.setState({
-            results: {
-                ...results,
-                [searchKey]: { hits: updatedHits, page }
-            },
-            isLoading: false
-        });
+        this.setState(updateSearchTopStoriesState(hits, page));
     }
 
     onSearchSubmit(event) {
