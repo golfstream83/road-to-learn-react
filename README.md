@@ -1,1 +1,1 @@
-[Demo](https://peaceful-tor-57723.herokuapp.com/).
+[Demo](https://peaceful-tor-57723.herokuapp.com/)
